@@ -1,0 +1,69 @@
+package:
+  name: ros-noetic-hpp-fcl
+  version: 2.3.0
+source:
+  git_url: https://github.com/humanoid-path-planner/hpp-fcl-ros-release.git
+  git_rev: release/noetic/hpp-fcl/2.3.0-1
+  folder: ros-noetic-hpp-fcl/src/work
+  patches:
+    - patch/ros-noetic-hpp-fcl.patch
+
+build:
+  script:
+    sel(win): bld_catkin.bat
+    sel(unix): build_catkin.sh
+  number: 16
+about:
+  home: https://www.ros.org/
+  license: BSD-3-Clause
+  summary: |
+    Robot Operating System
+
+extra:
+  recipe-maintainers:
+    - ros-forge
+
+requirements:
+  build:
+    - "{{ compiler('cxx') }}"
+    - "{{ compiler('c') }}"
+    - sel(linux64): sysroot_linux-64 2.17
+    - ninja
+    - setuptools
+    - sel(unix): make
+    - sel(unix): coreutils
+    - sel(osx): tapi
+    - sel(build_platform != target_platform): pkg-config
+    - cmake
+    - sel(build_platform != target_platform): python
+    - sel(build_platform != target_platform): cross-python_{{ target_platform }}
+    - sel(build_platform != target_platform): cython
+    - sel(build_platform != target_platform): numpy
+    - sel(build_platform != target_platform): doxygen
+    - sel(build_platform != target_platform): git
+  host:
+    - assimp
+    - boost
+    - eigen
+    - graphviz
+    - lxml
+    - numpy
+    - pip
+    - sel(build_platform == target_platform): pkg-config
+    - python
+    - ros-distro-mutex 0.4 noetic
+    - ros-noetic-eigenpy
+    - ros-noetic-octomap
+    - sel(build_platform == target_platform): doxygen
+    - sel(build_platform == target_platform): git
+  run:
+    - assimp
+    - boost
+    - eigen
+    - numpy
+    - python
+    - ros-distro-mutex 0.4 noetic
+    - ros-noetic-catkin
+    - ros-noetic-eigenpy
+    - ros-noetic-octomap
+    - sel(osx and x86_64): __osx >={{ MACOSX_DEPLOYMENT_TARGET|default('10.14') }}

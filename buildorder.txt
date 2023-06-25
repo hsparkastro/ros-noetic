@@ -1,0 +1,5 @@
+ros-noetic-usb-cam
+ros-noetic-hpp-fcl
+ros-noetic-microstrain-inertial-msgs
+ros-noetic-pinocchio
+ros-noetic-microstrain-inertial-driver
